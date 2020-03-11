@@ -1,9 +1,10 @@
 import React from 'react';
+import Qoute from './components/Qoute'
 
 function App() {
   return (
-    <div className="App">
-      
+    <div>
+      <Qoute />
     </div>
   );
 }
