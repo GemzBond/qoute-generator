@@ -7,26 +7,37 @@ class Qoute extends React.Component {
     super()
 
     this.state = {
-      qoutes: [],
-      author:[]
+      quotes: null,
+      randomQuotes: null
     }
 
-    // this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     fetch(API)
       .then(res => res.json())
-      .then((data) => {
-        console.log(data.author)
+      .then(data => {
+        this.setState({
+          quotes: data.quotes
+        })
       })
+  }
+
+  handleClick() {
+    const randNum = Math.floor(Math.random() * this.state.quotes.length);
+    const randomQuotes = this.state.quotes[randNum]
+
+    this.setState({
+      randomQuotes
+    })
   }
 
   render() {
     return (
       <div id="qoute-box" className="bg-light border rounded mx-auto my-5 px-3 py-3 w-50">
-        <h1 className="text-center" id="text">"Easily make an element as wide or as tall (relative to its parent) with our width and height utilities."</h1>
-        <h4 className="text-right" id="author">-John Doe</h4>
+        <h1 className="text-center" id="text">"{this.state.randomQuotes !== null && this.state.randomQuotes.quote}"</h1>
+        <h4 className="text-right" id="author">-{this.state.randomQuotes !== null && this.state.randomQuotes.author}</h4>
 
         <div className="d-flex flex-row justify-content-between">
           <div className="mt-4">
